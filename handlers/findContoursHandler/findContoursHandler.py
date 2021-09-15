@@ -26,6 +26,10 @@ class FindContoursHandler(BaseCommandHandler):
             #thresh = cv2.adaptiveThreshold(blur, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, \
             #cv2.THRESH_BINARY, 11, 2)[1]
 
+            #Выделение контура с помощью Лапласиана
+            s = cv2.Laplacian(blur, cv2.CV_16S, ksize=3)
+            s = cv2.convertScaleAbs(s)
+            cv2.imshow('nier', s)
             # Find contours, perform contour approximation, and extract ROI
             ROI = None
             if (1==0):
