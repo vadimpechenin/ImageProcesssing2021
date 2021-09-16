@@ -18,7 +18,8 @@ parameters = LoadPhotosHandlerParameter(enviromentObject.loc3, enviromentObject.
 # Загрузка картинок для дальнейшей обработки
 objectParameter = handlerObject.initFunction(0, parameters)
 # Обработка изображений с использованием
-parameters = FindContoursHandlerParameter(objectParameter)
+parameters = FindContoursHandlerParameter(objectParameter,enviromentObject.pl_filter,enviromentObject.path_file,
+                                        enviromentObject.nameSafeCounrotsPhoto, enviromentObject.size_of_image_for_save)
 counturs = handlerObject.initFunction(1, parameters)
 g = 0
 

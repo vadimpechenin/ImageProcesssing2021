@@ -18,10 +18,11 @@ class AppEnviroment:
 
         self.pl_save_net = 0
 
-        self.size_of_image = (112, 112)
+        self.size_of_image_for_save = (112, 112)
         self.size_of_image = (448, 448)
 
         self.pl_load = 0
+        self.pl_filter = 1
 
         #Пути для загрузки обучающих и тестовых данных
         self.path_file='D:\\Vadim\\Классификация_нейросети\\Matlab_подготовка_и_решение\\'
@@ -42,6 +43,11 @@ class AppEnviroment:
         elif (self.pl_depth == 3):
             self.name_safe_train_test = '/train_test_photo_112_3D_18'
 
+        if (self.pl_depth == 1):
+            self.nameSafeCounrotsPhoto = '/testPhoto'
+        elif (self.pl_depth == 3):
+            self.nameSafeCounrotsPhoto = '/testPhoto_3D'
+
         # Сохранение полученных результатов оптимизации
         if self.pl_real_photo == 0:
             if (self.pl_depth == 1):
@@ -54,5 +60,7 @@ class AppEnviroment:
             else:
                 self.name_safe_result = '/Details_result_112_VGG_2021_photo_3D'
 
+        # Параметры фильтров
+        ksizeLaplasian = 3 #Размер окна маски для выделения контуров, возможны нечетные варианты, идеал 3
 
 

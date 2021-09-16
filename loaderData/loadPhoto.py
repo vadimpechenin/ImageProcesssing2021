@@ -43,3 +43,15 @@ class LoadPhoto:
         X = np.array(load_mat['X'])
         print('Загружены матрицы из папки ' + path_file + 'Файл ' + name_safe_train_test)
         return X, Y
+
+    @staticmethod
+    def SaveMat(X, path_file, name_safe_train_test):
+        scipy.io.savemat(path_file + name_safe_train_test + '.mat', {'X': X})
+        print('Сохранены матрицы в папку ' + path_file + 'Файл ' + name_safe_train_test)
+
+    @staticmethod
+    def loadMat(path_file, name_safe_train_test):
+        load_mat = scipy.io.loadmat(path_file + name_safe_train_test + '.mat')
+        X = np.array(load_mat['X'])
+        print('Загружены матрицы из папки ' + path_file + 'Файл ' + name_safe_train_test)
+        return X
