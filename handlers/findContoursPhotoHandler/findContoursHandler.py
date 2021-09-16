@@ -6,6 +6,8 @@ import cv2
 
 import numpy as np
 
+from processingData.counturByLaplasian import CounturByLaplasian
+
 class FindContoursHandler(BaseCommandHandler):
     def __init__(self):
         pass
@@ -20,18 +22,20 @@ class FindContoursHandler(BaseCommandHandler):
             # параметры цветового фильтра
             # Load image, grayscale, bilaterial filter, Otsu's threshold
             for image in parameters.objectParameter.X:
+
+                imageBeforeLaplacian = CounturByLaplasian.bilateralLaplasianMethod(image, 3)
                 # Оригинальное изображение
-                original = image.copy()
+                #original = image.copy()
                 # Билатеральная фильтрация перед обработкой (убираем шумы)
-                blur = cv2.bilateralFilter(original, 9, int(round(np.mean(original),0))/4, int(round(np.mean(original),0))/4) #9, 75, 75
+                #blur = cv2.bilateralFilter(original, 9, int(round(np.mean(original),0))/4, int(round(np.mean(original),0))/4) #9, 75, 75
                 # Ранговая фильтрация (медианный фильтр) (отметаем, будем использовать в статье при сравнении)
-                medianBlur = cv2.medianBlur(original, 3)
+                #medianBlur = cv2.medianBlur(original, 3)
                 # Делаем черно-белый оттенок
-                thresh = cv2.threshold(original, 0, 255, cv2.THRESH_BINARY_INV + cv2.THRESH_OTSU)[1]
+                #thresh = cv2.threshold(original, 0, 255, cv2.THRESH_BINARY_INV + cv2.THRESH_OTSU)[1]
 
                 #Выделение контура с помощью Лапласиана
-                imageBeforeLaplacian = cv2.Laplacian(blur, cv2.CV_16S, ksize=3)
-                imageBeforeLaplacian = cv2.convertScaleAbs(imageBeforeLaplacian)
+                #imageBeforeLaplacian = cv2.Laplacian(blur, cv2.CV_16S, ksize=3)
+                #imageBeforeLaplacian = cv2.convertScaleAbs(imageBeforeLaplacian)
 
                 # Find contours, perform contour approximation, and extract ROI
                 # Перспективная технология, пока не выделяем прямоугольник
@@ -56,11 +60,11 @@ class FindContoursHandler(BaseCommandHandler):
                 #Сохранение в матрицы
                 Xt[i, :, :, 0] = cv2.resize(imageBeforeLaplacian,parameters.size_of_image).astype(np.float32)
                 i+=1
-            LoadPhoto.SaveMat(Xt, parameters.path_file,
+            LoadPhoto.saveMat(Xt, parameters.path_file,
                                              parameters.name_safe_train_test)
 
         else:
-            Xt = LoadPhoto.LoadMat(parameters.path_file,
+            Xt = LoadPhoto.loadMat(parameters.path_file,
                               parameters.name_safe_train_test)
         return Xt
 

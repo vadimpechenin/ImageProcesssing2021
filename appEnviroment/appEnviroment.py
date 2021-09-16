@@ -21,8 +21,9 @@ class AppEnviroment:
         self.size_of_image_for_save = (112, 112)
         self.size_of_image = (448, 448)
 
-        self.pl_load = 0
-        self.pl_filter = 1
+        self.pl_load = 0 # Загрузка фото
+        self.pl_filter = 0 # Выделение контуров на фото
+        self.pl_filterMat = 1
 
         #Пути для загрузки обучающих и тестовых данных
         self.path_file='D:\\Vadim\\Классификация_нейросети\\Matlab_подготовка_и_решение\\'
@@ -47,6 +48,13 @@ class AppEnviroment:
             self.nameSafeCounrotsPhoto = '/testPhoto'
         elif (self.pl_depth == 3):
             self.nameSafeCounrotsPhoto = '/testPhoto_3D'
+
+        if (self.pl_depth == 1):
+            self.nameSafeCounrotsMat = '/Traincountour'
+            self.nameSafeCounrotsMatTest = '/Testcountour'
+        elif (self.pl_depth == 3):
+            self.nameSafeCounrotsMat = '/Traincountour_3D'
+            self.nameSafeCounrotsMatTest = '/Testcountour_3D'
 
         # Сохранение полученных результатов оптимизации
         if self.pl_real_photo == 0:

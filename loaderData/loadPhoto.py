@@ -45,7 +45,7 @@ class LoadPhoto:
         return X, Y
 
     @staticmethod
-    def SaveMat(X, path_file, name_safe_train_test):
+    def saveMat(X, path_file, name_safe_train_test):
         scipy.io.savemat(path_file + name_safe_train_test + '.mat', {'X': X})
         print('Сохранены матрицы в папку ' + path_file + 'Файл ' + name_safe_train_test)
 
