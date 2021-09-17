@@ -4,7 +4,32 @@ from tqdm import tqdm
 import cv2
 import scipy.io
 
+
+def resize2SquareKeepingAspectRation(img, size, interpolation):
+    #Метод для сохраниния размерности
+    h, w = img.shape[:2]
+    c = None if len(img.shape) < 3 else img.shape[2]
+    if h == w: return cv2.resize(img, (size, size), interpolation)
+    if h > w:
+        dif = h
+    else:
+        dif = w
+    x_pos = int((dif - w) / 2.)
+    y_pos = int((dif - h) / 2.)
+    if c is None:
+        mask = np.zeros((dif, dif), dtype=img.dtype)
+        #mask = np.full((dif, dif), 255, dtype=img.dtype)
+        mask[y_pos:y_pos + h, x_pos:x_pos + w] = img[:h, :w]
+
+    else:
+        mask = np.zeros((dif, dif, c), dtype=img.dtype)
+        #mask = np.full((dif, dif, c), 255, dtype=img.dtype)
+        mask[y_pos:y_pos + h, x_pos:x_pos + w, :] = img[:h, :w, :]
+    return cv2.resize(mask, (size, size), interpolation)
+
+
 class LoadPhoto:
+
     @staticmethod
     def imreadPhotoFromDir(locationOfPhoto, size_of_image, numberOfClass):
         features = []
@@ -14,7 +39,8 @@ class LoadPhoto:
             # Преобразование в серый цвет (1 матрица)
             gray = cv2.cvtColor(f, cv2.COLOR_BGR2GRAY)
             #Изменение размера
-            fr = cv2.resize(gray, size_of_image)
+            #fr = cv2.resize(gray, size_of_image, cv2.INTER_AREA)
+            fr = resize2SquareKeepingAspectRation(gray, size_of_image[0], cv2.INTER_AREA)
             features.append(fr)
 
         labels = []
@@ -55,3 +81,4 @@ class LoadPhoto:
         X = np.array(load_mat['X'])
         print('Загружены матрицы из папки ' + path_file + 'Файл ' + name_safe_train_test)
         return X
+

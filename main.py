@@ -10,6 +10,8 @@ from handlers.findContoursPhotoHandler.findContoursHandlerParameter import FindC
 from handlers.loadMatsHandler.loadMatsHandlerParameter import LoadMatsHandlerParameter
 from handlers.findContoursMatHandler.findContoursMatHandlerParameter import FindContoursMatHandlerParameter
 
+from handlers.cutBackgroundPhotoHandler.cutBackgroundPhotoHandlerParameter import CutBackgroundPhotoHandlerParameter
+
 enviromentObject = AppEnviroment()
 handlerObject = MainCommandHandler()
 
@@ -19,10 +21,15 @@ parameters = LoadPhotosHandlerParameter(enviromentObject.loc3, enviromentObject.
 
 # Загрузка картинок для дальнейшей обработки
 objectParameter = handlerObject.initFunction(0, parameters)
-# Обработка изображений с использованием
+# Обработка изображений с использованием лапласа
 parameters = FindContoursHandlerParameter(objectParameter,enviromentObject.pl_filter,enviromentObject.path_file,
                                         enviromentObject.nameSafeCounrotsPhoto, enviromentObject.size_of_image_for_save)
 counturs = handlerObject.initFunction(1, parameters)
+# Обработка изображений - отбрасывание контура и сглаживание
+parameters = CutBackgroundPhotoHandlerParameter(objectParameter,enviromentObject.pl_cut_filter, enviromentObject.path_file, enviromentObject.loc3_contour,
+                                        enviromentObject.nameSafeCutsPhoto, enviromentObject.size_of_image_for_save)
+counturs = handlerObject.initFunction(4, parameters)
+
 
 #Загрузка mat файла
 parameters = LoadMatsHandlerParameter(enviromentObject.name_safe1, enviromentObject.name_safe2,

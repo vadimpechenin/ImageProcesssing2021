@@ -12,7 +12,7 @@ class LoadMatsHandler(BaseCommandHandler):
         # Получение матриц фотографий и меток к ним
         #Загрузка матриц, определенного размера и цвета
         if parameters.pl_save == 1:
-            x_train1, y_train1, x_test1, y_test1, N, N_test, H, L = LoadMatFile.loadMatTrain(parameters.path_file, parameters.name_safe1, parameters.name_safe2)
+            x_train1, y_train1, x_test1, y_test1, N, N_test, H, L, pl_mat73 = LoadMatFile.loadMatTrain(parameters.path_file, parameters.name_safe1, parameters.name_safe2)
 
             ObjectMatParameter.name = parameters.name_safe1
             ObjectMatParameter.x_train1 = x_train1
@@ -24,5 +24,6 @@ class LoadMatsHandler(BaseCommandHandler):
             ObjectMatParameter.N = N
             ObjectMatParameter.N_test = N_test
             ObjectMatParameter.sizeMat = [H, L]
+            ObjectMatParameter.pl_mat73 = pl_mat73
 
         return ObjectMatParameter

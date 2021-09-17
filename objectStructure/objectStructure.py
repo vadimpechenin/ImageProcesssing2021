@@ -18,6 +18,7 @@ class ObjectMatParameter:
         self.N = []
         self.N_test = []
         self.sizeMat = []
+        self.pl_mat73 = 0
 
 class ObjectStructure:
     @staticmethod

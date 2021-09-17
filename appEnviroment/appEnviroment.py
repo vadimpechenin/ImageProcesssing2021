@@ -21,20 +21,27 @@ class AppEnviroment:
         self.size_of_image_for_save = (112, 112)
         self.size_of_image = (448, 448)
 
-        self.pl_load = 0 # Загрузка фото
-        self.pl_filter = 0 # Выделение контуров на фото
+        self.pl_load = 1 # Загрузка фото
+        self.pl_filter = 1 # Выделение контуров на фото
+        self.pl_cut_filter = 1 #Отбрасывание фона
         self.pl_filterMat = 1
 
         #Пути для загрузки обучающих и тестовых данных
         self.path_file='D:\\Vadim\\Классификация_нейросети\\Matlab_подготовка_и_решение\\'
         self.path_file='D:\\Задачи в MATLAB\\ИИР\\Исследование фильтров\\Классификация_нейросети\\Matlab_подготовка_и_решение\\'
-        self.name_safe1 = 'Data_for_klassification4_x_train_real_2020'
-        self.name_safe2 = 'Data_for_klassification_real_2020'
+        #self.name_safe1 = 'Data_for_klassification4_x_train_real_2020'
+        #self.name_safe2 = 'Data_for_klassification_real_2020'
+        self.name_safe1 = 'Data_for_klassification4_x_train_real_2020_448'
+        self.name_safe2 = 'Data_for_klassification_real_2020_448'
+
+
         self.name_safe3 = 'Data_for_klassification_real_2020_photos'
         # Фотографии
         self.loc1 = 'photos_0704/val_0' # photos
         self.loc2 = 'photos_0704/val_3'
         self.loc3 = 'photos_0704/val_5' #'photos_0704/val_4'
+
+        self.loc3_contour = 'photos_0704/val_5_contour'
 
         self.path_file_save = 'save_data'
 
@@ -48,6 +55,11 @@ class AppEnviroment:
             self.nameSafeCounrotsPhoto = '/testPhoto'
         elif (self.pl_depth == 3):
             self.nameSafeCounrotsPhoto = '/testPhoto_3D'
+
+        if (self.pl_depth == 1):
+            self.nameSafeCutsPhoto = '/testPhotoCut'
+        elif (self.pl_depth == 3):
+            self.nameSafeCutsPhoto = '/testPhotoCut_3D'
 
         if (self.pl_depth == 1):
             self.nameSafeCounrotsMat = '/Traincountour'

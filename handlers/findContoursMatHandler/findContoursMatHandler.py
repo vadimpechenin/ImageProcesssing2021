@@ -16,37 +16,44 @@ class FindContoursMatHandler(BaseCommandHandler):
         # Выделение контуров на матрицах
         if parameters.pl_filter == 1:
             i = 0
-            t = parameters.objectParameter.sizeMat[0][0][0]
-            N = parameters.objectParameter.N[0][0]
-            XtrainContour = np.zeros((parameters.objectParameter.N[0][0], parameters.objectParameter.sizeMat[0][0][0],  parameters.objectParameter.sizeMat[0][0][0], 3))
-            XtestContour = np.zeros((parameters.objectParameter.N_test[0][0], parameters.objectParameter.sizeMat[0][0][0],
-                                      parameters.objectParameter.sizeMat[0][0][0], 3))
+            if (parameters.objectParameter.pl_mat73 == 0):
+                sizeMat = parameters.objectParameter.sizeMat[0][0][0]
+                N = parameters.objectParameter.N[0][0]
+                N_test = parameters.objectParameter.N_test[0][0]
+            else:
+                sizeMat = int(parameters.objectParameter.sizeMat[0])
+                N = int(parameters.objectParameter.N)
+                N_test = int(parameters.objectParameter.N_test)
+            XtrainContour = np.zeros((N, parameters.size_of_image[0], parameters.size_of_image[1], 3))
+            XtestContour = np.zeros((N_test, parameters.size_of_image[0],
+                                     parameters.size_of_image[1], 3))
             # параметры цветового фильтра
             # Load image, grayscale, bilaterial filter, Otsu's threshold
-            for j in range(parameters.objectParameter.N[0][0]):
-                #image = np.zeros((parameters.objectParameter.sizeMat[0][0][0],  parameters.objectParameter.sizeMat[0][0][0]))
+            for j in range(N):
+                # image = np.zeros((parameters.objectParameter.sizeMat[0][0][0],  parameters.objectParameter.sizeMat[0][0][0]))
                 for i in range(parameters.objectParameter.x_train1.shape[1]):
-                    image = parameters.objectParameter.x_train1[j,i,:,:].astype('uint8')
+                    image = parameters.objectParameter.x_train1[j, i, :, :].astype('uint8')
                     imageBeforeLaplacian = CounturByLaplasian.bilateralLaplasianMethod(image, 3)
 
-                    if (1==0):
+                    if (1 == 0):
                         self.plotResults(imageBeforeLaplacian, image)
 
-                    #Сохранение в матрицы
-                    XtrainContour[j, :, :, i] = cv2.resize(imageBeforeLaplacian,parameters.size_of_image).astype(np.float32)
+                    # Сохранение в матрицы
+                    XtrainContour[j, :, :, i] = cv2.resize(imageBeforeLaplacian, parameters.size_of_image).astype(
+                        np.float32)
 
-
-            for j in range(parameters.objectParameter.N_test[0][0]):
-                #image = np.zeros((parameters.objectParameter.sizeMat[0][0][0],  parameters.objectParameter.sizeMat[0][0][0]))
+            for j in range(N_test):
+                # image = np.zeros((parameters.objectParameter.sizeMat[0][0][0],  parameters.objectParameter.sizeMat[0][0][0]))
                 for i in range(parameters.objectParameter.x_test1.shape[1]):
-                    image = parameters.objectParameter.x_test1[j,i,:,:].astype('uint8')
+                    image = parameters.objectParameter.x_test1[j, i, :, :].astype('uint8')
                     imageBeforeLaplacian = CounturByLaplasian.bilateralLaplasianMethod(image, 3)
 
-                    if (1==0):
+                    if (1 == 0):
                         self.plotResults(imageBeforeLaplacian, image)
 
-                    #Сохранение в матрицы
-                    XtestContour[j, :, :, i] = cv2.resize(imageBeforeLaplacian,parameters.size_of_image).astype(np.float32)
+                    # Сохранение в матрицы
+                    XtestContour[j, :, :, i] = cv2.resize(imageBeforeLaplacian, parameters.size_of_image).astype(
+                        np.float32)
 
             LoadPhoto.saveMat(XtrainContour, parameters.path_file,
                                              parameters.name_safe_train)

@@ -9,6 +9,7 @@ from handlers.loadPhotosHandler.loadPhotosHandler import LoadPhotosHandler
 from handlers.findContoursPhotoHandler.findContoursHandler import FindContoursHandler
 from handlers.loadMatsHandler.loadMatsHandler import LoadMatsHandler
 from handlers.findContoursMatHandler.findContoursMatHandler import FindContoursMatHandler
+from handlers.cutBackgroundPhotoHandler.cutBackgroundPhotoHandler import CutBackgroundPhotoHandler
 
 class MainCommandHandler(BaseCommandHandler):
     def __init__(self):
@@ -18,6 +19,7 @@ class MainCommandHandler(BaseCommandHandler):
         self.dict[1] = FindContoursHandler()
         self.dict[2] = LoadMatsHandler()
         self.dict[3] = FindContoursMatHandler()
+        self.dict[4] = CutBackgroundPhotoHandler()
 
     def initFunction(self,code_request, parameter):
         result = None
