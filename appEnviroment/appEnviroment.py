@@ -42,6 +42,7 @@ class AppEnviroment:
         self.loc3 = 'photos_0704/val_5' #'photos_0704/val_4'
 
         self.loc3_contour = 'photos_0704/val_5_contour'
+        self.locmat_contour = 'photos_0704/mat_contour'
 
         self.path_file_save = 'save_data'
 

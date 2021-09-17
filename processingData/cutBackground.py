@@ -2,7 +2,7 @@ import numpy as np
 import cv2
 
 class CutBackground:
-    #Класс получения контуров с помощью билатерального фильтра и Лапласиана
+    #Удаление фона или просто сохранение картинки
     @staticmethod
     def thresholdMethod(image, ii, path_file_save):
         # Билатеральная фильтрация перед обработкой (убираем шумы)
@@ -19,3 +19,7 @@ class CutBackground:
         image[i, j] = 255
         cv2.imwrite(path_file_save + '/' + str(ii+1) + '.jpg', image)
         return imageBeforeThreshold
+
+    @staticmethod
+    def saveMatMethod(image, ii, path_file_save):
+        cv2.imwrite(path_file_save + '/' + str(ii + 1) + '.jpg', image)

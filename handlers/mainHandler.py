@@ -10,6 +10,7 @@ from handlers.findContoursPhotoHandler.findContoursHandler import FindContoursHa
 from handlers.loadMatsHandler.loadMatsHandler import LoadMatsHandler
 from handlers.findContoursMatHandler.findContoursMatHandler import FindContoursMatHandler
 from handlers.cutBackgroundPhotoHandler.cutBackgroundPhotoHandler import CutBackgroundPhotoHandler
+from handlers.saveMatToPhotoHandler.saveMatToPhotoHandler import SaveMatToPhotoHandler
 
 class MainCommandHandler(BaseCommandHandler):
     def __init__(self):
@@ -20,6 +21,7 @@ class MainCommandHandler(BaseCommandHandler):
         self.dict[2] = LoadMatsHandler()
         self.dict[3] = FindContoursMatHandler()
         self.dict[4] = CutBackgroundPhotoHandler()
+        self.dict[5] = SaveMatToPhotoHandler()
 
     def initFunction(self,code_request, parameter):
         result = None

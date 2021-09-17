@@ -11,6 +11,7 @@ from handlers.loadMatsHandler.loadMatsHandlerParameter import LoadMatsHandlerPar
 from handlers.findContoursMatHandler.findContoursMatHandlerParameter import FindContoursMatHandlerParameter
 
 from handlers.cutBackgroundPhotoHandler.cutBackgroundPhotoHandlerParameter import CutBackgroundPhotoHandlerParameter
+from handlers.saveMatToPhotoHandler.saveMatToPhotoHandlerParameter import SaveMatToPhotoHandlerParameter
 
 enviromentObject = AppEnviroment()
 handlerObject = MainCommandHandler()
@@ -35,6 +36,10 @@ counturs = handlerObject.initFunction(4, parameters)
 parameters = LoadMatsHandlerParameter(enviromentObject.name_safe1, enviromentObject.name_safe2,
                                       enviromentObject.path_file, enviromentObject.pl_save)
 objectMatParameter = handlerObject.initFunction(2, parameters)
+#Сохранение тестовых фотографий
+parameters = SaveMatToPhotoHandlerParameter(objectMatParameter,enviromentObject.pl_cut_filter, enviromentObject.path_file, enviromentObject.locmat_contour,
+                                        enviromentObject.size_of_image_for_save)
+objectMatParameter = handlerObject.initFunction(5, parameters)
 #Контура с mat файла
 parameters = FindContoursMatHandlerParameter(objectMatParameter, enviromentObject.pl_filterMat, enviromentObject.path_file,
                                         enviromentObject.nameSafeCounrotsMat, enviromentObject.nameSafeCounrotsMatTest, enviromentObject.size_of_image_for_save)
